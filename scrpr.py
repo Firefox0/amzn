@@ -84,15 +84,7 @@ def filter_pages(responses, price_range=None):
 
 def sort_list(l):
     l.sort(key=lambda x: x[0]-x[1], reverse=True)
-    print(l)
-    if l and len(l) > 1:
-        best_deal = (l[0][0] - l[0][1], l[0][2])
-        for e in l[1:]:
-            if (temp_diff := e[0] - e[1]) > best_deal[0]:
-                best_deal = (temp_diff, e[2])
-    else:
-        best_deal = None
-    return best_deal
+    return l
 
 def dump_json(l):
     
