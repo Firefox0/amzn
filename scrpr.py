@@ -123,7 +123,8 @@ def main():
         name += f"_{price_range[0]}-{price_range[1]}"
     if pages_amount:
         name += f"_{pages_amount}"
-    write_json(json, name.replace(" ", "_"))
+    name = name.replace(" ", "_")
+    write_json(json, name)
 
     if sorted_list:
         print(f"You save ${round(sorted_list[0][0]-sorted_list[0][1], 2)} with the best deal: https://www.amazon.com{sorted_list[0][2]}\n" +
