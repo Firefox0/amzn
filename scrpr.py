@@ -14,9 +14,12 @@ def get_user_input():
     price_range = 0
     pages_amount = 0
 
-    user_input_raw = input("Optional Args: --p X-Y (Price Range: $X-$Y, default: None)\n" +
-                            "--s X (Checks X pages for sales, default: 12)\n" +
-                            "Example: Razer Mechanical Keyboard --s 20 --p 50-100 (Looks for keyboards by checking 20 pages and considering the price range of $50-$100)\n" +
+    user_input_raw = input("Optional Args:\n" +
+                            f"{' ':15}--p X-Y (Price Range: $X-$Y, default: None)\n" +
+                            f"{' ':15}--s X (Checks X pages for sales, default: 12)\n" +
+                            "Example:\n" +
+                            f"{' ':9}Razer Mechanical Keyboard --s 20 --p 50-100\n" +
+                            f"{' ':9}(Looks for keyboard deals by checking 20 pages and considering the price range of $50-$100)\n" +
                             "Input: ")
 
     if "--" in user_input_raw:
