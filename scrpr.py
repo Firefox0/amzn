@@ -55,7 +55,7 @@ def amazon_links(product_formatted, pages_amount=12):
     return urls
 
 def make_requests(urls, header):
-    print("Starting requests")
+    print("\nStarting requests")
     async_requests = (grequests.get(u, headers=header) for u in urls)
     responses = grequests.map(async_requests) 
     print("Requests done\n")
