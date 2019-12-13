@@ -58,7 +58,7 @@ def make_requests(urls, header):
     print("Starting requests")
     async_requests = (grequests.get(u, headers=header) for u in urls)
     responses = grequests.map(async_requests) 
-    print("Requests done")
+    print("Requests done\n")
     return responses
 
 def filter_pages(responses, price_range=None):
