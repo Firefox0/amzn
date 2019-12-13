@@ -14,8 +14,8 @@ def get_user_input():
     price_range = 0
     pages_amount = 0
 
-    user_input_raw = input("Optional Args: --p 100-300 (Price Range: $100-$300, default: None)\n" +
-                            "--s 5 (How many amazon pages to check, default: 12)\n" +
+    user_input_raw = input("Optional Args: --p X-Y (Price Range: $X-$Y, default: None)\n" +
+                            "--s X (Checks X pages for sales, default: 12)\n" +
                             "Example: Razer Mechanical Keyboard --s 20 --p 50-100 (Looks for keyboards by checking 20 pages and considering the price range of $50-$100)\n" +
                             "Input: ")
 
