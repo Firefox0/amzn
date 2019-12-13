@@ -7,6 +7,8 @@ import secrets
 # restructure 
 # test time print end="", does it print that one already or waits until full line with newline
 
+random = secrets.SystemRandom()
+
 def get_user_input():
     product_formatted = 0 
     price_range = 0
@@ -104,13 +106,12 @@ def main():
     json = get_json(sorted_list)
     write_json(json, product_formatted)
     if sorted_list:
-        print(f"You save ${round(sorted_list[0][0]-sorted_list[0][1], 2)} with the best deal: https://www.amazon.com{sorted_list[0][2]}" +
-              f"A sorted and detailed list of the deals has been saved as {product_formatted}.json")
+        print(f"You save ${round(sorted_list[0][0]-sorted_list[0][1], 2)} with the best deal: https://www.amazon.com{sorted_list[0][2]}\n" +
+              f"A sorted and detailed list of the deals has been saved as {product_formatted.replace(' ', '_')}.json")
     else:
         print("No deals found. Look for another product or change price range.")
     if input("Again? (y/n) ") == "y":
         main()
 
 if __name__ == "__main__":
-    random = secrets.SystemRandom()
     main()
