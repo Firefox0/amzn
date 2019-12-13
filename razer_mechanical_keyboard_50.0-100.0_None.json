@@ -1,0 +1,56 @@
+{
+    "BUNDLE Optical Gaming Keyboard Headset": {
+        "from": 149.99,
+        "to": 99.99,
+        "saving": 50.0,
+        "link": "https://www.amazon.com/BUNDLE-Optical-Gaming-Keyboard-Headset/dp/B0781CQXP1"
+    },
+    "AULA Progammable Handed Merchanical Keyboard": {
+        "from": 100.0,
+        "to": 65.99,
+        "saving": 34.01,
+        "link": "https://www.amazon.com/AULA-Progammable-Handed-Merchanical-Keyboard/dp/B0728P6DR5"
+    },
+    "Razer Naga Trinity Optical Interchangeable": {
+        "from": 99.99,
+        "to": 69.99,
+        "saving": 30.0,
+        "link": "https://www.amazon.com/Razer-Naga-Trinity-Optical-Interchangeable/dp/B0788MCRGC"
+    },
+    "Razer Mamba Elite Programmable Ergonomic": {
+        "from": 89.99,
+        "to": 59.99,
+        "saving": 30.0,
+        "link": "https://www.amazon.com/Razer-Mamba-Elite-Programmable-Ergonomic/dp/B07F816PH9"
+    },
+    "SteelSeries Tenkeyless Mechanical Gaming Keyboard": {
+        "from": 119.99,
+        "to": 97.23,
+        "saving": 22.76,
+        "link": "https://www.amazon.com/SteelSeries-Tenkeyless-Mechanical-Gaming-Keyboard/dp/B076XDTLBB"
+    },
+    "HyperX Alloy FPS Software Controlled Customization": {
+        "from": 109.99,
+        "to": 93.99,
+        "saving": 16.0,
+        "link": "https://www.amazon.com/HyperX-Alloy-FPS-Software-Controlled-Customization/dp/B07G2PY7KH"
+    },
+    "Razer BlackWidow Stealth Mechanical Keyboard": {
+        "from": 99.99,
+        "to": 89.95,
+        "saving": 10.04,
+        "link": "https://www.amazon.com/Razer-BlackWidow-Stealth-Mechanical-Keyboard/dp/B00ELNG49I"
+    },
+    "RIPJAWS KM570 Minimalistic Cherry Blue": {
+        "from": 79.99,
+        "to": 71.63,
+        "saving": 8.36,
+        "link": "https://www.amazon.com/RIPJAWS-KM570-Minimalistic-Cherry-Blue/dp/B01LZQKYZU"
+    },
+    "Razer Lancehead Ambidextrous Gaming Mouse": {
+        "from": 79.99,
+        "to": 76.0,
+        "saving": 3.99,
+        "link": "https://www.amazon.com/Razer-Lancehead-Ambidextrous-Gaming-Mouse/dp/B06XH15HD9"
+    }
+}

@@ -1,7 +1,6 @@
 import grequests
 from bs4 import BeautifulSoup
 import json
-import time 
 import secrets
 
 # restructure 
@@ -10,9 +9,9 @@ import secrets
 random = secrets.SystemRandom()
 
 def get_user_input():
-    product_formatted = 0 
-    price_range = 0
-    pages_amount = 0
+    product_formatted = None
+    price_range = None 
+    pages_amount = None
 
     user_input_raw = input("Optional Args:\n" +
                             f"{' ':15}--p X-Y (Price Range: $X-$Y, default: None)\n" +
@@ -36,9 +35,19 @@ def get_user_input():
             elif arg == "s ":
                 pages_amount = e[2:] 
 
-    return product_formatted, price_range, int(pages_amount)
+        if pages_amount:
+            pages_amount = int(pages_amount)
+    
+    else:
+        product_formatted = user_input_raw
+
+    return product_formatted, price_range, pages_amount
+    
 
 def amazon_links(product_formatted, pages_amount=12):
+    if not pages_amount:
+         pages_amount = 12 
+
     urls = []
     amazon_standard = "https://www.amazon.com/s?k="
     for i in range(1, pages_amount+1):
@@ -105,13 +114,21 @@ def main():
     product_formatted, price_range, pages_amount = get_user_input()
     urls = amazon_links(product_formatted, pages_amount=pages_amount)
     responses = make_requests(urls, header)
+    print(f"price range: {price_range}")
     filtered_pages = filter_pages(responses, price_range=price_range)
     sorted_list = sort_list(filtered_pages)
     json = get_json(sorted_list)
-    write_json(json, product_formatted)
+
+    name = product_formatted.lower()
+    if price_range:
+        name += f"_{price_range[0]}-{price_range[1]}"
+    if pages_amount:
+        name += f"_{pages_amount}"
+    write_json(json, name.replace(" ", "_"))
+
     if sorted_list:
         print(f"You save ${round(sorted_list[0][0]-sorted_list[0][1], 2)} with the best deal: https://www.amazon.com{sorted_list[0][2]}\n" +
-              f"A sorted and detailed list of the deals has been saved as {product_formatted.replace(' ', '_')}.json")
+              f"A sorted and detailed list of the deals has been saved as {product_formatted}.json")
     else:
         print("No deals found. Look for another product or change price range.")
     if input("Again? (y/n) ") == "y":
