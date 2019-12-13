@@ -14,7 +14,7 @@ def get_user_input():
     price_range = 0
     pages_amount = 0
 
-    user_input_raw = input("Optional Args: --p 100-300 (Price Range: $100-$300)\n" +
+    user_input_raw = input("Optional Args: --p 100-300 (Price Range: $100-$300, default: None)\n" +
                             "--s 5 (How many amazon pages to check, default: 12)\n" +
                             "What are you looking for?\n")
 
