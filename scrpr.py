@@ -16,7 +16,8 @@ def get_user_input():
 
     user_input_raw = input("Optional Args: --p 100-300 (Price Range: $100-$300, default: None)\n" +
                             "--s 5 (How many amazon pages to check, default: 12)\n" +
-                            "What are you looking for?\n")
+                            "Example: Razer Mechanical Keyboard --s 20 --p 50-100 (Looks for keyboards by checking 20 pages and considering the price range of $50-$100)\n" +
+                            "Input: ")
 
     if "--" in user_input_raw:
         split = user_input_raw.split("--")
