@@ -2,10 +2,10 @@ import grequests
 from bs4 import BeautifulSoup
 import json
 import time 
+import secrets
 
 # restructure 
 # test time print end="", does it print that one already or waits until full line with newline
-# json dump
 
 def get_user_input():
     product_formatted = 0 
@@ -18,7 +18,7 @@ def get_user_input():
 
     if "--" in user_input_raw:
         split = user_input_raw.split("--")
-        product_formatted = split[0]
+        product_formatted = split[0].strip()
         if " " in product_formatted:
             product_formatted.replace(" ", "+")
 
@@ -86,11 +86,13 @@ def sort_list(l):
     l.sort(key=lambda x: x[0]-x[1], reverse=True)
     return l
 
-def dump_json(l):
-    
+def get_json(l):
     d = {h.split("/", 2)[1].replace("-", " "): {"from": f, "to": t, "saving": round(f-t, 2), "link": f"https://www.amazon.com{h}"} for f, t, h in l}
-    new_d = sorted(d.items(), key=lambda e: e[1]["saving"], reverse=True)
-    print(json.dumps(new_d, indent=4))
+    return json.dumps(d, indent=4)
+    
+def write_json(json, name=random.randint(0, 1000001)):
+    with open(f"{name}.json", "w") as f:
+        f.write(json)
 
 def main():
     header = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101 Firefox/68.0"}
@@ -98,13 +100,17 @@ def main():
     urls = amazon_links(product_formatted, pages_amount=pages_amount)
     responses = make_requests(urls, header)
     filtered_pages = filter_pages(responses, price_range=price_range)
-    best_deal = get_best_deal(filtered_pages)
-    if best_deal:
-        print(f"You save ${round(best_deal[0], 2)} with the best deal: https://www.amazon.com{best_deal[1]}")
+    sorted_list = sort_list(filtered_pages)
+    json = get_json(sorted_list)
+    write_json(json, product_formatted)
+    if sorted_list:
+        print(f"You save ${round(sorted_list[0][0]-sorted_list[0][1], 2)} with the best deal: https://www.amazon.com{sorted_list[0][2]}" +
+              f"A sorted and detailed list of the deals has been saved as {product_formatted}.json")
     else:
         print("No deals found. Look for another product or change price range.")
     if input("Again? (y/n) ") == "y":
         main()
 
 if __name__ == "__main__":
+    random = secrets.SystemRandom()
     main()
