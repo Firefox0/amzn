@@ -2,9 +2,9 @@ import grequests
 from bs4 import BeautifulSoup
 import json
 import secrets
+import os 
 
 # restructure 
-# test time print end="", does it print that one already or waits until full line with newline
 
 random = secrets.SystemRandom()
 
@@ -105,8 +105,10 @@ def get_json(l):
     d = {h.split("/", 2)[1].replace("-", " "): {"from": f, "to": t, "saving": round(f-t, 2), "link": f"https://www.amazon.com{h}"} for f, t, h in l}
     return json.dumps(d, indent=4)
     
-def write_json(json, name=random.randint(0, 1000001)):
-    with open(f"{name}.json", "w") as f:
+def write_json(json, name=random.randint(0, 1000001), dirname="best_deals"):
+    if not os.path.isdir(dirname):
+        os.mkdir(dirname)
+    with open(f"{dirname}\\{name}.json", "w") as f:
         f.write(json)
 
 def print_progress(message):
@@ -119,9 +121,9 @@ def main():
     urls = amazon_links(product_formatted, pages_amount=pages_amount)
     responses = make_requests(urls, header)
     filtered_pages = filter_pages(responses, price_range=price_range)
-    sorted_list = sort_list(filtered_pages)
 
-    if sorted_list:
+    if filtered_pages:
+        sorted_list = sort_list(filtered_pages)
         print(f"You save ${round(sorted_list[0][0]-sorted_list[0][1], 2)} with the best deal: https://www.amazon.com{sorted_list[0][2]}\n")
 
         json = get_json(sorted_list)
@@ -136,6 +138,7 @@ def main():
         print(f"A sorted and detailed list of the deals has been saved as {name}.json")
     else:
         print("No deals found. Look for another product or change price range.")
+        
     if input("\nAgain? (y/n) ") == "y":
         main()
 
