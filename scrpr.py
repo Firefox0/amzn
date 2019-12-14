@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import json
 import secrets
 import os 
+import datetime 
 
 # restructure 
 
@@ -129,11 +130,9 @@ def main():
         json = get_json(sorted_list)
 
         name = product_formatted.lower()
-        if price_range:
-            name += f"_{price_range[0]}-{price_range[1]}"
-        if pages_amount:
-            name += f"_{pages_amount}"
-        name = name.replace(" ", "_")
+        name += "_"
+        name += str(datetime.datetime.now())[:-7]
+        name = name.replace(" ", "_").replace(":", "-")
         write_json(json, name)
         print(f"A sorted and detailed list of the deals has been saved as {name}.json")
     else:
