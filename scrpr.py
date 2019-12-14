@@ -9,19 +9,20 @@ import datetime
 
 random = secrets.SystemRandom()
 
+def intro():
+    print("Optional Args:\n" +
+        f"{' ':15}--p X-Y (Price Range: $X-$Y, default: None)\n" +
+        f"{' ':15}--s X (Checks X pages for sales, default: 12)\n" +
+        "Example:\n" +
+        f"{' ':9}Razer Mechanical Keyboard --s 20 --p 50-100\n" +
+        f"{' ':9}(Looks for keyboard deals by checking 20 pages and considering the price range of $50-$100)")
+
 def get_user_input():
     product_formatted = None
     price_range = None 
     pages_amount = None
 
-    user_input_raw = input("Optional Args:\n" +
-                            f"{' ':15}--p X-Y (Price Range: $X-$Y, default: None)\n" +
-                            f"{' ':15}--s X (Checks X pages for sales, default: 12)\n" +
-                            "Example:\n" +
-                            f"{' ':9}Razer Mechanical Keyboard --s 20 --p 50-100\n" +
-                            f"{' ':9}(Looks for keyboard deals by checking 20 pages and considering the price range of $50-$100)\n" +
-                            "Input: ")
-
+    user_input_raw = input("\nInput: ")
     if "--" in user_input_raw:
         split = user_input_raw.split("--")
         product_formatted = split[0].strip()
@@ -95,7 +96,7 @@ def filter_pages(responses, price_range=None):
         print_progress(f"Checking page: {current_page_number} -> Found {amount_sales_page} sales.")
     
     print_progress("")
-    print(f"Checked {amount_sales_total} sales in total.\n")
+    print(f"Found {amount_sales_total} sales in total.\n")
     return filtered
 
 def sort_list(l):
@@ -142,4 +143,5 @@ def main():
         main()
 
 if __name__ == "__main__":
+    intro()
     main()
