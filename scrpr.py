@@ -64,8 +64,10 @@ def filter_pages(responses, price_range=None):
 
     for response in responses:
         soup = BeautifulSoup(response.content, "html.parser")
-        top_classes = soup.find_all("a", {"class": "a-size-base a-link-normal s-no-hover a-text-normal"})
-        sale_classes = [c for c in top_classes if c.find("span", {"class": "a-price a-text-price"})]
+        top_classes = soup.find_all(
+            "a", {"class": "a-size-base a-link-normal s-no-hover a-text-normal"})
+        sale_classes = [c for c in top_classes if c.find(
+            "span", {"class": "a-price a-text-price"})]
         amount_sales_page = 0
 
         for sale_class in sale_classes: 
@@ -94,7 +96,8 @@ def sort_list(l):
     return l
 
 def get_json(l):
-    d = {h.split("/", 2)[1].replace("-", " "): {"from": f, "to": t, "saving": round(f-t, 2), "link": f"https://www.amazon.com{h}"} for f, t, h in l}
+    d = {h.split("/", 2)[1].replace("-", " "): 
+            {"from": f, "to": t, "saving": round(f-t, 2), "link": f"https://www.amazon.com{h}"} for f, t, h in l}
     return json.dumps(d, indent=4)
     
 def write_json(json, name=random.randint(0, 1000001), dirname="best_deals"):
@@ -115,7 +118,8 @@ def main():
 
     if filtered_pages:
         sorted_list = sort_list(filtered_pages)
-        print(f"You save ${round(sorted_list[0][0]-sorted_list[0][1], 2)} with the best deal: https://www.amazon.com{sorted_list[0][2]}\n")
+        print(f"You save ${round(sorted_list[0][0]-sorted_list[0][1], 2)} " +
+                "with the best deal: https://www.amazon.com{sorted_list[0][2]}\n")
 
         json = get_json(sorted_list)
 
