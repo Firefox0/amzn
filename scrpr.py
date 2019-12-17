@@ -5,8 +5,6 @@ import secrets
 import os 
 import datetime 
 
-# restructure 
-
 random = secrets.SystemRandom()
 
 def intro():
@@ -44,19 +42,9 @@ def get_user_input():
         product_formatted = user_input_raw
 
     return product_formatted, price_range, pages_amount
-    
 
-def amazon_links(product_formatted, pages_amount=12):
-    if not pages_amount:
-         pages_amount = 12 
-
-    urls = []
-    amazon_standard = "https://www.amazon.com/s?k="
-    for i in range(1, pages_amount+1):
-        urls.append(f"{amazon_standard}{product_formatted}&page={i}")
-    return urls
-
-def make_requests(urls, header):
+def make_requests(product_formatted, header, pages_amount=12):
+    urls = [f"https://www.amazon.com/s?k={product_formatted}&page={i}" for i in range(1, pages_amount+1)]
     print("\nStarting requests")
     async_requests = (grequests.get(u, headers=header) for u in urls)
     responses = grequests.map(async_requests) 
@@ -120,8 +108,7 @@ def main():
     header = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101 Firefox/68.0"}
 
     product_formatted, price_range, pages_amount = get_user_input()
-    urls = amazon_links(product_formatted, pages_amount=pages_amount)
-    responses = make_requests(urls, header)
+    responses = make_requests(product_formatted, header, pages_amount)
     filtered_pages = filter_pages(responses, price_range=price_range)
 
     if filtered_pages:
@@ -130,10 +117,8 @@ def main():
 
         json = get_json(sorted_list)
 
-        name = product_formatted.lower()
-        name += "_"
-        name += str(datetime.datetime.now())[:-7]
-        name = name.replace(" ", "_").replace(":", "-")
+        name = (product_formatted.lower() + "_" + 
+               str(datetime.datetime.now())[:-7]).replace(" ", "_").replace(":", "-")
         write_json(json, name)
         print(f"A sorted and detailed list of the deals has been saved as {name}.json")
     else:
