@@ -44,6 +44,8 @@ def get_user_input():
     return product_formatted, price_range, pages_amount
 
 def make_requests(product_formatted, header, pages_amount=12):
+    if not pages_amount:
+        pages_amount = 12 
     urls = [f"https://www.amazon.com/s?k={product_formatted}&page={i}" for i in range(1, pages_amount+1)]
     print("\nStarting requests")
     async_requests = (grequests.get(u, headers=header) for u in urls)
